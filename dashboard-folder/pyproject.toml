@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "dashboard"
+version = "0.1.0"
+description = ""
+authors = ["wapaa <oumou.elmouminine.dhmine@insa.ueuromed.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+pytest = "^7.4.4"
+pandas = "^2.1.4"
+dash = "^2.14.2"
+dash-html-components = "^2.0.0"
+dash-bootstrap-components = "^1.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
