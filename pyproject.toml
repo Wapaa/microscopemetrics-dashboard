@@ -1,0 +1,39 @@
+[tool.poetry] 
+name = "dashboard"
+version = "0.1.0"
+description = ""
+authors = ["wapaa <oumou.elmouminine.dhmine@insa.ueuromed.org>"]
+readme = "README.md"
+license = "GPL-3.0-only"
+homepage = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics"
+repository = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics"
+documentation = "https://github.com/MontpellierRessourcesImagerie/microscope-metrics/tree/master/docs"
+keywords = ["microscopy", "metrology"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8.10 <=3.11"
+requests = "^2.31.0"
+pandas = "^2"
+dash = "^2.14.2"
+dash-html-components = "^2.0.0"
+dash-bootstrap-components = "^1.5.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7"
+#pytest-cov = "^4"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23"
+poetry = "^1"
+isort = "^5"
+pre-commit = "^3" 
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
