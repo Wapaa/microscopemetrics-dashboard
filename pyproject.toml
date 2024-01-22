@@ -32,7 +32,7 @@ pytest = "^7"
 black = "^23"
 poetry = "^1"
 isort = "^5"
-pre-commit = "^3" 
+pre-commit = "^3"
 
 [build-system]
 requires = ["poetry-core"]

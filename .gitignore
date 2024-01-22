@@ -1,8 +1,8 @@
 /venvs/
 /dist/
-
 /.pytest_cache/
 /.tox/
 /.venv/
 /.coverage
 .venv/
+.git/
