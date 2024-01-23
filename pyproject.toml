@@ -1,5 +1,5 @@
 [tool.poetry] 
-name = "dashboard"
+name = "microscopemetrics-dashboard"
 version = "0.1.0"
 description = ""
 authors = ["wapaa <oumou.elmouminine.dhmine@insa.ueuromed.org>"]
@@ -17,6 +17,7 @@ testpaths = [
 
 [tool.poetry.dependencies]
 python = ">=3.8.10 <=3.11"
+microscopemetrics-schema = {git = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git"}
 requests = "^2.31.0"
 pandas = "^2"
 dash = "^2.14.2"
