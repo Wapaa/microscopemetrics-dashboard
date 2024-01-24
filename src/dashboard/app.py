@@ -1,44 +1,29 @@
-from dash import Dash, Input, Output, callback, dcc, html
+import dash
+import dash_mantine_components as dmc
+from dash import Dash, dcc, html
 
-external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
-
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(__name__, use_pages=True)
 
 app.layout = html.Div(
     [
-        html.H1("Dash Tabs component demo"),
-        dcc.Tabs(
-            id="tabs-example-graph",
-            value="tab-1-example-graph",
+        dmc.Navbar(
+            p="md",  # providing medium padding all side
+            fixed=False,  # Setting fixed to false
+            width={"base": 300},  # Initial size of navbar ie. 300px
+            hidden=True,  # we want to hide for smaller screen
+            hiddenBreakpoint="md",  # after past medium size navbar will be hidden.
+            height="100vh",  # providing height of navbar
+            id="sidebar",
             children=[
-                dcc.Tab(label="Tab One", value="tab-1-example-graph"),
-                dcc.Tab(label="Tab Two", value="tab-2-example-graph"),
+                dmc.Anchor("Link1", href="/"),
+                dmc.Anchor("Link2", href="testpage"),
+                dmc.Anchor("Link3", href="/"),
+                dmc.Anchor("Link4", href="/"),
             ],
         ),
-        html.Div(id="tabs-content-example-graph"),
+        dash.page_container,
     ]
 )
-
-
-@callback(Output("tabs-content-example-graph", "children"), Input("tabs-example-graph", "value"))
-def render_content(tab):
-    if tab == "tab-1-example-graph":
-        return html.Div(
-            [
-                html.H3("Tab content 1"),
-                dcc.Graph(figure={"data": [{"x": [1, 2, 3], "y": [3, 1, 2], "type": "bar"}]}),
-            ]
-        )
-    elif tab == "tab-2-example-graph":
-        return html.Div(
-            [
-                html.H3("Tab content 2"),
-                dcc.Graph(
-                    id="graph-2-tabs-dcc",
-                    figure={"data": [{"x": [1, 2, 3], "y": [5, 10, 6], "type": "bar"}]},
-                ),
-            ]
-        )
 
 
 if __name__ == "__main__":

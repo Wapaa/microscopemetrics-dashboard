@@ -1,5 +1,5 @@
 [tool.poetry] 
-name = "microscopemetrics-dashboard"
+name = "dashboard"
 version = "0.1.0"
 description = ""
 authors = ["wapaa <oumou.elmouminine.dhmine@insa.ueuromed.org>"]
@@ -23,6 +23,8 @@ pandas = "^2"
 dash = "^2.14.2"
 dash-html-components = "^2.0.0"
 dash-bootstrap-components = "^1.5.0"
+dash-mantine-components = "^0.12.1"
+dash-iconify = "^0.1.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7"
@@ -34,6 +36,7 @@ black = "^23"
 poetry = "^1"
 isort = "^5"
 pre-commit = "^3"
+ipykernel = "^6.29.0"
 
 [build-system]
 requires = ["poetry-core"]

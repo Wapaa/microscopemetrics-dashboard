@@ -1,0 +1,31 @@
+body, .mantine-Header-root {
+    background-color: #f2f4f6 !important;
+} 
+
+ .mantine-Navbar-root {
+    background-color: #ffffff!important;
+}
+
+.mantine-Anchor-root {
+    color: #fff!important;
+}
+.nav-list-items {
+    padding: 1rem;
+    color: #189A35!important;
+    text-decoration: none;
+    list-style: none;
+}
+
+.nav-list-items:hover {
+    color: #215c97!important;
+    background-color: #195dcc!important;
+}
+
+.mantine-Navbar-root a:-webkit-any-link{
+    text-decoration: none;
+    color: #189A35 !important;
+}
+
+.mantine-Navbar-root ::marker{
+    display: none;
+}
