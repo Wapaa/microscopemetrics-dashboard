@@ -33,7 +33,7 @@ app.layout = html.Div(
                     href="/testpage",
                 ),
                 dmc.NavLink(
-                    label="Unnamed", icon=get_icon(icon="tabler:gauge"), href="/underconstruction"
+                    label="User View", icon=get_icon(icon="tabler:gauge"), href="/globalView"
                 ),
                 dmc.NavLink(
                     label="Unnamed",
@@ -69,4 +69,4 @@ app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="10.6.12.32")

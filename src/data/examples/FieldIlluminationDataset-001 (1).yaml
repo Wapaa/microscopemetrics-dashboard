@@ -5326,8 +5326,8 @@ output:
         stroke_width: 1
         x: 0.0
         y: 0.0
-        w: 5.0
-        h: 5.0
+        w: 51.0
+        h: 51.0
       top_center_region:
         stroke_color:
           r: 0
@@ -5335,10 +5335,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 30.0
+        x: 230.0
         y: 0.0
-        w: 5.0
-        h: 5.0
+        w: 51.0
+        h: 51.0
       top_right_region:
         stroke_color:
           r: 0
@@ -5346,10 +5346,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 58.0
+        x: 461.0
         y: 0.0
-        w: 5.0
-        h: 5.0
+        w: 51.0
+        h: 51.0
       middle_left_region:
         stroke_color:
           r: 0
@@ -5358,9 +5358,9 @@ output:
           alpha: 200
         stroke_width: 1
         x: 0.0
-        y: 30.0
-        w: 5.0
-        h: 5.0
+        y: 230.0
+        w: 51.0
+        h: 51.0
       middle_center_region:
         stroke_color:
           r: 0
@@ -5368,10 +5368,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 30.0
-        y: 30.0
-        w: 5.0
-        h: 5.0
+        x: 230.0
+        y: 230.0
+        w: 51.0
+        h: 51.0
       middle_right_region:
         stroke_color:
           r: 0
@@ -5379,10 +5379,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 58.0
-        y: 30.0
-        w: 5.0
-        h: 5.0
+        x: 461.0
+        y: 230.0
+        w: 51.0
+        h: 51.0
       bottom_left_region:
         stroke_color:
           r: 0
@@ -5391,9 +5391,9 @@ output:
           alpha: 200
         stroke_width: 1
         x: 0.0
-        y: 58.0
-        w: 5.0
-        h: 5.0
+        y: 461.0
+        w: 51.0
+        h: 51.0
       bottom_center_region:
         stroke_color:
           r: 0
@@ -5401,10 +5401,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 30.0
-        y: 58.0
-        w: 5.0
-        h: 5.0
+        x: 230.0
+        y: 461.0
+        w: 51.0
+        h: 51.0
       bottom_right_region:
         stroke_color:
           r: 0
@@ -5412,10 +5412,10 @@ output:
           b: 0
           alpha: 200
         stroke_width: 1
-        x: 58.0
-        y: 58.0
-        w: 5.0
-        h: 5.0
+        x: 461.0
+        y: 461.0
+        w: 51.0
+        h: 51.0
   center_of_illumination:
     label: Centers of illumination
     description: Detected centers of illumination
@@ -5435,8 +5435,8 @@ output:
           b: 0
           alpha: 200
         stroke_width: 5
-        y: 31
-        x: 31
+        y: 255
+        x: 255
       ch01_center:
         c: 1
         fill_color:
