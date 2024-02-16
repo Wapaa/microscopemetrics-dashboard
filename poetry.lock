@@ -1107,13 +1107,13 @@ files = [
 
 [[package]]
 name = "hypothesis"
-version = "6.98.3"
+version = "6.98.4"
 description = "A library for property-based testing"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "hypothesis-6.98.3-py3-none-any.whl", hash = "sha256:13fd80af383508f5a4707e0148120437d962d6a3ed8f5554b4daea5777a34fc6"},
-    {file = "hypothesis-6.98.3.tar.gz", hash = "sha256:1844d92ca65a42185e1d78956400455e644f88264e1611ebdc8d6aa71b402773"},
+    {file = "hypothesis-6.98.4-py3-none-any.whl", hash = "sha256:8417d1df13e7ba0eb6cba0917e0aa6c8b0b6b35a4e7fb78db6ab84dfbeb8c8fe"},
+    {file = "hypothesis-6.98.4.tar.gz", hash = "sha256:785f47ddac183c7ffef9463b5ab7f2e4433ca9b2b1171e52eeb3f8c5b1f09fa2"},
 ]
 
 [package.dependencies]
@@ -1154,13 +1154,13 @@ jsonschema = ">=4.18.0"
 
 [[package]]
 name = "identify"
-version = "2.5.33"
+version = "2.5.34"
 description = "File identification library for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "identify-2.5.33-py2.py3-none-any.whl", hash = "sha256:d40ce5fcd762817627670da8a7d8d8e65f24342d14539c59488dc603bf662e34"},
-    {file = "identify-2.5.33.tar.gz", hash = "sha256:161558f9fe4559e1557e1bff323e8631f6a0e4837f7497767c1782832f16b62d"},
+    {file = "identify-2.5.34-py2.py3-none-any.whl", hash = "sha256:a4316013779e433d08b96e5eabb7f641e6c7942e4ab5d4c509ebd2e7a8994aed"},
+    {file = "identify-2.5.34.tar.gz", hash = "sha256:ee17bc9d499899bc9eaec1ac7bf2dc9eedd480db9d88b96d123d3b64a9d34f5d"},
 ]
 
 [package.extras]
@@ -1179,13 +1179,13 @@ files = [
 
 [[package]]
 name = "imageio"
-version = "2.33.1"
+version = "2.34.0"
 description = "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "imageio-2.33.1-py3-none-any.whl", hash = "sha256:c5094c48ccf6b2e6da8b4061cd95e1209380afafcbeae4a4e280938cce227e1d"},
-    {file = "imageio-2.33.1.tar.gz", hash = "sha256:78722d40b137bd98f5ec7312119f8aea9ad2049f76f434748eb306b6937cc1ce"},
+    {file = "imageio-2.34.0-py3-none-any.whl", hash = "sha256:08082bf47ccb54843d9c73fe9fc8f3a88c72452ab676b58aca74f36167e8ccba"},
+    {file = "imageio-2.34.0.tar.gz", hash = "sha256:ae9732e10acf807a22c389aef193f42215718e16bd06eed0c5bb57e1034a4d53"},
 ]
 
 [package.dependencies]
@@ -1899,7 +1899,7 @@ develop = false
 [package.dependencies]
 hypothesis-jsonschema = "^0.23.0"
 matplotlib = "^3"
-microscopemetrics-schema = {git = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git"}
+microscopemetrics-schema = {git = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git", branch = "dev"}
 numpy = "^1"
 pandas = "^1"
 scikit-image = "^0.21"
@@ -1908,8 +1908,8 @@ scipy = "^1.10"
 [package.source]
 type = "git"
 url = "https://github.com/juliomateoslangerak/microscope-metrics.git"
-reference = "HEAD"
-resolved_reference = "60f6536e9e229f4ab06588b6f2c28e8a9ce8ce93"
+reference = "dev"
+resolved_reference = "f2e8ce55552415a89c8e86473995491ea71d43ec"
 
 [[package]]
 name = "microscopemetrics-omero"
@@ -1921,15 +1921,15 @@ files = []
 develop = false
 
 [package.dependencies]
-microscopemetrics = {git = "https://github.com/juliomateoslangerak/microscope-metrics.git"}
+microscopemetrics = {git = "https://github.com/juliomateoslangerak/microscope-metrics.git", branch = "dev"}
 omero-py = "^5"
 pyyaml = "^6"
 
 [package.source]
 type = "git"
 url = "https://github.com/juliomateoslangerak/microscopemetrics-omero.git"
-reference = "HEAD"
-resolved_reference = "21c26ddf455d51a249d36fb1451f5755efdc3966"
+reference = "dev"
+resolved_reference = "02665d7ca280bf614d6baba9c05f766d1996cbb3"
 
 [[package]]
 name = "microscopemetrics-schema"
@@ -1949,8 +1949,8 @@ docs = []
 [package.source]
 type = "git"
 url = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git"
-reference = "HEAD"
-resolved_reference = "fb2b23def18a3ab45fd78317dd87445ede08cd5f"
+reference = "dev"
+resolved_reference = "c981d24dd0286efa28bd19bc196aa7a49cb457f4"
 
 [[package]]
 name = "more-itertools"
@@ -3464,18 +3464,18 @@ jeepney = ">=0.6"
 
 [[package]]
 name = "setuptools"
-version = "69.0.3"
+version = "69.1.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "setuptools-69.0.3-py3-none-any.whl", hash = "sha256:385eb4edd9c9d5c17540511303e39a147ce2fc04bc55289c322b9e5904fe2c05"},
-    {file = "setuptools-69.0.3.tar.gz", hash = "sha256:be1af57fc409f93647f2e8e4573a142ed38724b8cdd389706a867bb4efcf1e78"},
+    {file = "setuptools-69.1.0-py3-none-any.whl", hash = "sha256:c054629b81b946d63a9c6e732bc8b2513a7c3ea645f11d0139a2191d735c60c6"},
+    {file = "setuptools-69.1.0.tar.gz", hash = "sha256:850894c4195f09c4ed30dba56213bf7c3f21d86ed6bdaafb5df5972593bfc401"},
 ]
 
 [package.extras]
 docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-inline-tabs", "sphinx-lint", "sphinx-notfound-page (>=1,<2)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
-testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pip (>=19.1)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-ruff", "pytest-timeout", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
+testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pip (>=19.1)", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-home (>=0.5)", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-ruff (>=0.2.1)", "pytest-timeout", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
 testing-integration = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "packaging (>=23.1)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
@@ -3902,4 +3902,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.10 <=3.11"
-content-hash = "4e4074cf415b3787e4e587a4d133376c12933f47614198519181cd07eed4d9b3"
+content-hash = "c742280ab3c0ce5ced8e442082f3543a9ba90c35c79ec2c1685272b1f24a82fc"

@@ -17,15 +17,15 @@ sample:
 experimenter:
   - name: "Jane Smith"
     orcid: "https://orcid.org/0000-0000-0000-0002"
-acquisition_datetime: "2024-01-15:00:00:00"
+acquisition_datetime: "2024-01-15T00:00:00Z"
 processed: true
-processing_datetime: "2024-01-16:00:00:00"
+processing_datetime: "2024-01-16T00:00:00Z"
 processing_log: "Processed using microscope-metrics v2.0"
 comment:
-  - datetime: "2024-01-15:00:00:00"
+  - datetime: "2024-01-15T00:00:00Z"
     comment_type: "OTHER"
     text: "This dataset is for testing purposes only."
-  - datetime: "2023-10-13:09:00:00"
+  - datetime: "2023-10-13T09:00:00Z"
     comment_type: "ACQUISITION"
     text: "So don't care about what I say."
 input:
@@ -42,19 +42,24 @@ input:
     shape_t: 1
   bit_depth: 12
   saturation_threshold: 0.01
+  center_threshold: 0.9
   corner_fraction: 0.1
-  sigma: 2.0
+  sigma: 3.0
   intensity_map_size: 64
 output:
   key_values:
     channel:
     - 0
-    nb_pixels_center:
-    - 220894
-    center_of_mass_x:
+    center_fraction:
+    - 0.2
+    centroid_weighted_x:
     - 264.1675555226803
-    center_of_mass_y:
+    centroid_weighted_y:
     - 288.2084306164054
+    centroid_x:
+    - 264.0
+    centroid_y:
+    - 288.0
     max_intensity:
     - 239.0
     max_intensity_pos_x:
@@ -5434,8 +5439,8 @@ output:
           b: 0
           alpha: 200
         stroke_width: 5
-        y: 255
-        x: 255
+        y: 288.2084306164054
+        x: 264.1675555226803
       ch01_center:
         c: 1
         fill_color:

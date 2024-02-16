@@ -17,9 +17,9 @@ testpaths = [
 
 [tool.poetry.dependencies]
 python = ">=3.8.10 <=3.11"
-microscopemetrics = {git = "https://github.com/juliomateoslangerak/microscope-metrics.git"}
-microscopemetrics-schema = {git = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git"}
-microscopemetrics-omero  = {git = "https://github.com/juliomateoslangerak/microscopemetrics-omero.git"}
+microscopemetrics = {git = "https://github.com/juliomateoslangerak/microscope-metrics.git", branch='dev'}
+microscopemetrics-schema = {git = "https://github.com/juliomateoslangerak/microscopemetrics-schema.git", branch='dev'}
+microscopemetrics-omero  = {git = "https://github.com/juliomateoslangerak/microscopemetrics-omero.git", branch='dev'}
 requests = "^2.31.0"
 dash = "^2.14.2"
 dash-html-components = "^2.0.0"
