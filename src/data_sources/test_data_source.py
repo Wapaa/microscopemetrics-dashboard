@@ -6,37 +6,20 @@ import numpy as np
 from linkml_runtime.utils.schemaview import SchemaView
 
 
-class DataSource:
+class StrategyDataSource:
+    pass
+
+
+class MinimalDataSource:
     def __init__(self, service, login, password):
-        self.connection = None
+        super().__init__(service, login, password)
         self.schema_view = SchemaView(mm_schema.microscopemetrics_schema)
 
     def get_user(self):
         return "Here is the user"
 
     def get_microscopes(self) -> Dict[str, mm_schema.Microscope]:
-        return {
-            "microscope1": mm_schema.Microscope(
-                id="microscope1",
-                name="microscope1",
-                description="A microscope",
-                manufacturer="Manufacturer1",
-                serial_number="SerialNumber1",
-                model="Model1",
-                type="WIDE-FIELD",
-                url="https://example.com/microscope1",
-            ),
-            "microscope2": mm_schema.Microscope(
-                id="microscope2",
-                name="microscope2",
-                description="A microscope",
-                manufacturer="Manufacturer2",
-                serial_number="SerialNumber1",
-                model="Model2",
-                type="WIDE-FIELD",
-                url="https://example.com/microscope2",
-            ),
-        }
+        raise NotImplementedError
 
     def get_analysis_types(self, microscope: mm_schema.Microscope) -> List[mm_schema.AnalysisType]:
         return self.schema_view.class_children("MetricsDataset")
@@ -67,3 +50,9 @@ class DataSource:
 
     def get_image_data(self, image: mm_schema.Image) -> np.ndarray:
         pass
+
+
+class OmeroDataSource(DataSource):
+    def __init__(self, service, login, password):
+        super().__init__(service, login, password)
+        self.connection = None
