@@ -17,14 +17,18 @@ from microscopemetrics_omero.load import load_image
 
 from data_sources.tools import *
 
-dash.register_page(__name__, path="/key")
+global var
+global ima
+dash.register_page(__name__, path="/key", suppress_callback_exceptions=True)
 c1 = "#d8f3dc"
 c2 = "#eceff1"
 c3 = "#189A35"
+global ID
+ID = 0
 
 
 @given(dataset=st_mm.st_field_illumination_dataset())
-@settings(max_examples=2, suppress_health_check=[HealthCheck.too_slow], deadline=10000)
+@settings(max_examples=3, suppress_health_check=[HealthCheck.too_slow], deadline=10000)
 def getDataset(dataset, list_data):
     list_data.append(dataset)
 
@@ -34,7 +38,9 @@ getDataset(list_data)
 
 
 [_["unprocessed_analysis"].run() for _ in list_data]
-data = get_key_values_st(list_data, "channel")
+data_all_cols = get_key_values_st(list_data)
+data_g = data_all_cols[["ID", "Object", "Channels", "Date Processed", "channel"]].copy()
+data_g.channel = data_g.channel.astype(str)
 
 valueWAs = list(list_data[0]["unprocessed_analysis"].output.key_values.__dict__.keys())
 
@@ -78,7 +84,9 @@ layout = dmc.Container(
                                         dmc.Col(
                                             [
                                                 html.H3("Select Category"),
-                                                dcc.Dropdown(valueWAs, id="key_dpd"),
+                                                dcc.Dropdown(
+                                                    valueWAs, value="channel", id="key_dpd"
+                                                ),
                                             ],
                                             span="auto",
                                             style={"background-color": c2, "margin-right": "10px"},
@@ -90,10 +98,10 @@ layout = dmc.Container(
                                                     id="date_filter",
                                                     start_date_placeholder_text="Start Period",
                                                     end_date_placeholder_text="End Period",
-                                                    start_date=data["Date Processed"].min(),
-                                                    end_date=data["Date Processed"].max(),
-                                                    min_date_allowed=data["Date Processed"].min(),
-                                                    max_date_allowed=data["Date Processed"].max(),
+                                                    start_date=data_g["Date Processed"].min(),
+                                                    end_date=data_g["Date Processed"].max(),
+                                                    min_date_allowed=data_g["Date Processed"].min(),
+                                                    max_date_allowed=data_g["Date Processed"].max(),
                                                 ),
                                             ],
                                             span="auto",
@@ -105,8 +113,7 @@ layout = dmc.Container(
                                 ),
                                 dash_table.DataTable(
                                     id="table",
-                                    columns=[{"name": i, "id": i} for i in sorted(data.columns)],
-                                    data=data.to_dict("records"),
+                                    data=data_g.to_dict("records"),
                                     page_size=10,
                                     sort_action="native",
                                     sort_mode="multi",
@@ -136,17 +143,8 @@ layout = dmc.Container(
                 ),
                 dmc.Col(
                     [
-                        dmc.Title("Decile 0 Plot through Time", color="#189A35", size="h3", mb=10),
-                        dcc.Graph(
-                            id="graph_line",
-                            figure=px.line(
-                                data,
-                                x="Date Processed",
-                                y="channel",
-                                title="Decile 0 by Date Processed",
-                                markers=True,
-                            ).update_layout(clickmode="event+select"),
-                        ),
+                        dmc.Title("Plot Over Time", color="#189A35", size="h3", mb=10),
+                        dcc.Graph(id="graph_line", figure={}),
                     ],
                     span="auto",
                     style={"background-color": "#eceff1", "border-radius": "5px"},
@@ -192,27 +190,60 @@ layout = dmc.Container(
 )
 def display_cell_double_clicked_on(point):
     # print(type(c[0]['pointIndex']))
+    global ima
+    global var
+
     ID = point["points"][0]["pointIndex"]
     style = {"background-color": c2, "border-radius": "0.5rem"}
     var = list_data[ID]["unprocessed_analysis"].output
-    image = get_intensity_map_data(var)
+    ima = get_intensity_map_data(var)
+    image = ima[0, 0, :, :, 0]
     data = get_key_values(var)
     data_IP = get_intensity_profiles(var)
+
+    channel_list_obj = [f"Channel {i}" for i in range(ima.shape[4])]
     fig = px.imshow(image, zmin=0, zmax=1, color_continuous_scale="gray")
-    t = []
-    t.append(dmc.Title("Intensity Map", color="#189A35", size="h3"))
-    t.append(
+    row_map = []
+    row_map.append(dmc.Title("Intensity Map", color="#189A35", size="h3"))
+    row_map.append(
         dmc.Grid(
             [
-                dmc.Col([dcc.Dropdown(["Channel 1"])], span="auto"),
-                dmc.Col([dcc.Dropdown(["Channel 1"])], span="auto"),
+                dmc.Col(
+                    [dcc.Dropdown(channel_list_obj, value=channel_list_obj[0], id="channel-obj")],
+                    span="auto",
+                ),
+                dmc.Col(
+                    [
+                        dcc.RadioItems(
+                            options=["Raw Image", "ROIS Image"],
+                            value="Raw Image",
+                            inline=True,
+                            id="rois-radio-obj",
+                        )
+                    ],
+                    span="auto",
+                ),
             ]
         )
     )
-    t.append(dcc.Graph(figure=fig, id="rois-graph"))
+    row_map.append(
+        html.Div(
+            dcc.Slider(
+                0,
+                ima.shape[1],
+                step=None,
+                id="crossfilter-time--slider",
+                value=0,
+                marks={str(i): str(i) for i in range(ima.shape[1])},
+            ),
+            style={"width": "49%", "padding": "0px 20px 20px 20px"},
+        )
+    )
+
+    row_map.append(dcc.Graph(figure={}, id="rois-graph-map"))
 
     t1 = []
-    t1.append(dmc.Title("Key Values", color="#189A35", size="h3"))
+    t1.append(dmc.Title("Key value Pairs", color="#189A35", size="h3"))
     t1.append(
         dash_table.DataTable(
             id="table-multicol-sorting",
@@ -238,14 +269,14 @@ def display_cell_double_clicked_on(point):
     )
     children1 = [
         dmc.Col(
-            id="object_info",
-            children=[dmc.Stack(id="map_image", children=t)],
+            id="object_info1",
+            children=[dmc.Stack(id="map_image1", children=row_map)],
             span=4,
             style={"background-color": c2, "border-radius": "0.5rem", "margin-right": "10px"},
         ),
         dmc.Col(
-            id="object_info",
-            children=[dmc.Stack(id="map_image", children=t1)],
+            id="object_info2",
+            children=[dmc.Stack(id="map_image2", children=t1)],
             span="auto",
             style=style,
         ),
@@ -270,13 +301,35 @@ def display_cell_double_clicked_on(point):
     Input("date_filter", "end_date"),
     Input("key_dpd", "value"),
 )
-def update_line(start_date, end_date, key_dpd="channel"):
-    data_new = get_key_values_st(list_data, key_dpd)
-    data_fd = data_new[
-        (data_new["Date Processed"] >= start_date) & (data_new["Date Processed"] <= end_date)
+def update_line(start_date, end_date, key_dpd):
+    data_fd = data_all_cols[
+        (data_all_cols["Date Processed"] >= start_date)
+        & (data_all_cols["Date Processed"] <= end_date)
     ]
+    data_col = data_fd[["ID", "Object", "Channels", "Date Processed", key_dpd]].copy()
+    v = [i[0] for i in data_col[key_dpd].to_list()]
+    f = data_col["Date Processed"].to_list()
     line_graph = px.line(
-        data_new, x="Date Processed", y=key_dpd, title=f"{key_dpd} by Date Processed", markers=True
-    )
-    print(key_dpd)
-    return line_graph, data_new.to_dict("records")
+        x=f, y=v, title=f"{key_dpd} by Date Processed", markers=True
+    ).update_layout(clickmode="event+select")
+    data_col[key_dpd] = data_col[key_dpd].astype(str)
+    return line_graph, data_col.to_dict("records")
+
+
+@callback(
+    Output("rois-graph-map", "figure"),
+    Input("channel-obj", "value"),
+    Input("rois-radio-obj", "value"),
+    Input("crossfilter-time--slider", "value"),
+)
+def update_graph(channel, value, slide_value):
+    image1 = ima[0, slide_value, :, :, int(channel[-1])]
+    roi_df = get_corner_rois(var)
+    profile_rois_df = get_profile_rois(var)
+    fig = px.imshow(image1)
+    if value == "ROIS Image":
+        fig1 = add_rois(go.Figure(fig), roi_df)
+        fig1 = add_profile_rois(go.Figure(fig1), profile_rois_df)
+        return fig1
+    else:
+        return fig

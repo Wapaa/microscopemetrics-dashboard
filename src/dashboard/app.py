@@ -10,7 +10,12 @@ def get_icon(icon):
     return DashIconify(icon=icon, height=24)
 
 
-app = Dash(__name__, external_stylesheets=external_stylesheets, use_pages=True)
+app = Dash(
+    __name__,
+    external_stylesheets=external_stylesheets,
+    use_pages=True,
+    suppress_callback_exceptions=True,
+)
 
 
 app.layout = html.Div(

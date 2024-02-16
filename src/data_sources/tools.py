@@ -12,16 +12,21 @@ from omero.gateway import BlitzGateway
 from PIL import Image
 
 
-def get_key_values_st(list_data, col):
+def get_key_values_st(list_data):
     data = []
     d1 = datetime.strptime("1/1/2000 1:30 PM", "%m/%d/%Y %I:%M %p")
     d2 = datetime.strptime("1/1/2024 4:50 AM", "%m/%d/%Y %I:%M %p")
+    cols = ["ID", "Object", "Channels", "Date Processed"]
+    cols.extend(list(list_data[0]["unprocessed_analysis"].output.key_values.__dict__.keys()))
     for j, i in enumerate(list_data):
         var = i["unprocessed_analysis"].output
+        values = list(var.key_values.__dict__.values())
         stff = "Object " + str(j)
         n = len(var.key_values.channel)
-        data.append([j, stff, n, var.key_values[col][0], random_date(d1, d2)])
-    df = pd.DataFrame(data, columns=["ID", "Object", "Channels", col, "Date Processed"])
+        row = [j, stff, n, random_date(d1, d2)]
+        row.extend(values)
+        data.append(row)
+    df = pd.DataFrame(data, columns=cols)
     return df
 
 
@@ -79,7 +84,7 @@ def get_connection(
 
 
 def get_profile_rois(var: FieldIlluminationDataset.output) -> pd.DataFrame:
-    data_dict = var.profile_rois.shapes
+    data_dict = var.roi_profiles.shapes
     data = [[key, value.x1, value.y1, value.x2, value.y2] for key, value in data_dict.items()]
     df = pd.DataFrame(data, columns=["ROI", "X1", "Y1", "X2", "Y2"])
     df.ROI = df.ROI.str.replace("_", " ", regex=True)
@@ -111,7 +116,7 @@ def get_center_of_illumination(var: FieldIlluminationDataset.output) -> pd.DataF
 
 
 def get_corner_rois(var: FieldIlluminationDataset.output) -> pd.DataFrame:
-    data_dict = var.corner_rois.shapes
+    data_dict = var.roi_corners.shapes
     data = [[key, value.x, value.y, value.w, value.h] for key, value in data_dict.items()]
     df = pd.DataFrame(data, columns=["ROI", "X", "Y", "W", "H"])
     df.ROI = df.ROI.str.replace("_", " ", regex=True)
@@ -123,19 +128,20 @@ def get_intensity_profiles(var: FieldIlluminationDataset.output) -> pd.DataFrame
     data_dict = var.intensity_profiles.columns
     dfs = [pd.DataFrame({key: value.values}) for key, value in data_dict.items()]
     df = pd.concat(dfs, axis=1)
-    df.columns = df.columns.str.replace("ch\d{2}_", "", regex=True)
-    df.columns = df.columns.str.replace("_", " ", regex=True)
-    df.columns = df.columns.str.title()
     return df
 
 
 def get_intensity_map_data(var: FieldIlluminationDataset.output) -> Image:
+    # TZYXC
     list_ima = var.intensity_map.data
     x = var.intensity_map.shape_x
     y = var.intensity_map.shape_y
-    ima = np.array(list_ima).reshape([x, y])
-    pil_ima = Image.fromarray(ima)
-    return pil_ima
+    z = var.intensity_map.shape_z
+    t = var.intensity_map.shape_t
+    c = var.intensity_map.shape_c
+    ima = np.array(list_ima).reshape([t, z, y, x, c])
+    # pil_ima = Image.fromarray(ima1)
+    return ima
 
 
 def get_key_values(var: FieldIlluminationDataset.output) -> pd.DataFrame:
@@ -263,3 +269,8 @@ def get_map_annotation(image_wrapper, conn):
             table = dict(keyPairs.getValue())
             df = pd.DataFrame(table.items(), columns=["Key", "Value"])
     return df
+
+
+"""    df.columns = df.columns.str.replace("ch\d{2}_", "", regex=True)
+    df.columns = df.columns.str.replace("_", " ", regex=True)
+    df.columns = df.columns.str.title()"""
