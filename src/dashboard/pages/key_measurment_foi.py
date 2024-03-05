@@ -28,7 +28,7 @@ ID = 0
 
 
 @given(dataset=st_mm.st_field_illumination_dataset())
-@settings(max_examples=3, suppress_health_check=[HealthCheck.too_slow], deadline=10000)
+@settings(max_examples=5, suppress_health_check=[HealthCheck.too_slow], deadline=10000)
 def getDataset(dataset, list_data):
     list_data.append(dataset)
 
@@ -192,17 +192,16 @@ def display_cell_double_clicked_on(point):
     # print(type(c[0]['pointIndex']))
     global ima
     global var
-
     ID = point["points"][0]["pointIndex"]
     style = {"background-color": c2, "border-radius": "0.5rem"}
     var = list_data[ID]["unprocessed_analysis"].output
     ima = get_intensity_map_data(var)
-    image = ima[0, 0, :, :, 0]
+    # image = ima[0, 0, :, :, 0]
     data = get_key_values(var)
-    data_IP = get_intensity_profiles(var)
+    # data_IP = get_intensity_profiles(var)
 
     channel_list_obj = [f"Channel {i}" for i in range(ima.shape[4])]
-    fig = px.imshow(image, zmin=0, zmax=1, color_continuous_scale="gray")
+    # fig = px.imshow(image, zmin=0, zmax=1, color_continuous_scale="gray")
     row_map = []
     row_map.append(dmc.Title("Intensity Map", color="#189A35", size="h3"))
     row_map.append(
@@ -285,7 +284,7 @@ def display_cell_double_clicked_on(point):
         dmc.Col(
             [
                 dmc.Title("Intensity Profiles", color="#189A35", size="h3"),
-                dcc.Graph(figure=px.line(data_IP)),
+                dcc.Graph(figure={}, id="intensity-profiles"),
             ],
             span=6,
             style={"background-color": c2, "border-radius": "0.5rem", "margin-right": "10px"},
@@ -318,6 +317,7 @@ def update_line(start_date, end_date, key_dpd):
 
 @callback(
     Output("rois-graph-map", "figure"),
+    Output("intensity-profiles", "figure"),
     Input("channel-obj", "value"),
     Input("rois-radio-obj", "value"),
     Input("crossfilter-time--slider", "value"),
@@ -327,9 +327,14 @@ def update_graph(channel, value, slide_value):
     roi_df = get_corner_rois(var)
     profile_rois_df = get_profile_rois(var)
     fig = px.imshow(image1)
+    data_IP = get_intensity_profiles(var)
+    df_profile = data_IP[
+        data_IP.columns[data_IP.columns.str.startswith("ch0" + channel[-1])]
+    ].copy()
+    int_graph = px.line(df_profile)
     if value == "ROIS Image":
         fig1 = add_rois(go.Figure(fig), roi_df)
         fig1 = add_profile_rois(go.Figure(fig1), profile_rois_df)
-        return fig1
+        return fig1, int_graph
     else:
-        return fig
+        return fig, int_graph
