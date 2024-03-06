@@ -39,8 +39,8 @@ def get_info_dash(conn):
 def get_connection(
     HOST="omero.mri.cnrs.fr",
     PORT=4064,
-    USERNAME="odhmine",
-    PASSWORD="Wa!na!pa@1",
+    USERNAME="username",
+    PASSWORD="password",
     GROUP="microscope-metrics",
 ):
     conn = BlitzGateway(USERNAME, PASSWORD, group=GROUP, port=PORT, host=HOST)
