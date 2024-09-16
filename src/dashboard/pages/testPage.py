@@ -13,7 +13,7 @@ from microscopemetrics_schema.datamodel.microscopemetrics_schema import (
 from data_sources.tools import *
 
 obj = yaml_loader.load(
-    "/home/wapaa/projects/microscopemetrics-dashboard/src/data/examples/FieldIlluminationDataset-001 (1).yaml",
+    "/home/wapaa/projects/microscopemetrics-dashboard/src/data/examples/FieldIlluminationDataset-001 (3).yaml",
     target_class=FieldIlluminationDataset,
 )
 
@@ -38,13 +38,13 @@ date = image_wrapper.getDate()
 channel_list = image_wrapper.getChannelLabels()
 channel_list = ["( " + i + "nm )" + " Channel: " + str(j) for j, i in enumerate(channel_list)]
 
-roi_df = get_corner_rois(obj.output)
-rois = roi_df.ROI.to_list()
+# roi_df = get_corner_rois(obj.output)
+# rois = roi_df.ROI.to_list()
 data = get_key_values(obj.output)
 data_IP = get_intensity_profiles(obj.output)
 ima = get_intensity_map_data(obj.output)
-points_df = get_center_of_illumination(obj.output)
-profile_rois_df = get_profile_rois(obj.output)
+# points_df = get_center_of_illumination(obj.output)
+# profile_rois_df = get_profile_rois(obj.output)
 shapes_rectangle, shapes_line = get_rois_omero(result)
 df_lines_omero = get_info_roi_lines(shapes_line)
 df_rects_omero = get_info_roi_rectangles(shapes_rectangle)
@@ -115,7 +115,7 @@ layout = dmc.Container(
                 dmc.Col(
                     [
                         dmc.Title("Intensity Profiles", color="#189A35", size="h3"),
-                        dcc.Graph(figure=px.line(data_IP)),
+                        dcc.Graph(figure=px.line(data_IP, markers=True)),
                     ],
                     span=6,
                 ),

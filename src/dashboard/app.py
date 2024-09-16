@@ -57,9 +57,9 @@ app.layout = html.Div(
         html.Div(
             [dash.page_container],
             style={
-                "width": "79%",
+                "width": "80%",
                 "height": "100vh",
-                "margin-left": "10px",
+                "margin-left": "2px",
                 "display": "inline-block",
                 "background": "white",
             },

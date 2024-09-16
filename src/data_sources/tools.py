@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from random import randrange
+
 import numpy as np
 import omero
 import pandas as pd
@@ -7,6 +10,30 @@ from microscopemetrics_schema.datamodel.microscopemetrics_schema import (
 )
 from omero.gateway import BlitzGateway
 from PIL import Image
+
+
+def get_key_values_st(list_data, col):
+    data = []
+    d1 = datetime.strptime("1/1/2000 1:30 PM", "%m/%d/%Y %I:%M %p")
+    d2 = datetime.strptime("1/1/2024 4:50 AM", "%m/%d/%Y %I:%M %p")
+    for j, i in enumerate(list_data):
+        var = i["unprocessed_analysis"].output
+        stff = "Object " + str(j)
+        n = len(var.key_values.channel)
+        data.append([j, stff, n, var.key_values[col][0], random_date(d1, d2)])
+    df = pd.DataFrame(data, columns=["ID", "Object", "Channels", col, "Date Processed"])
+    return df
+
+
+def random_date(start, end):
+    """
+    This function will return a random datetime between two datetime
+    objects.
+    """
+    delta = end - start
+    int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+    random_second = randrange(int_delta)
+    return start + timedelta(seconds=random_second)
 
 
 def info_row(obj):
@@ -64,6 +91,14 @@ def get_microscope_list(conn):
     data = []
     for g in conn.getGroupsMemberOf():
         data.append([g.getName(), g.getId()])
+    df = pd.DataFrame(data, columns=["Name", "Id"])
+    return df
+
+
+def get_projects_list(conn, group_id):
+    data = []
+    for project in conn.getObjects("Project", opts={"group": group_id}):
+        data.append([project.getName(), project.getId()])
     df = pd.DataFrame(data, columns=["Name", "Id"])
     return df
 

@@ -43,18 +43,20 @@ input:
   bit_depth: 12
   saturation_threshold: 0.01
   corner_fraction: 0.1
-  sigma: 2.0
+  sigma: 3.0
   intensity_map_size: 64
 output:
   key_values:
     channel:
     - 0
-    nb_pixels_center:
-    - 220894
-    center_of_mass_x:
+    centroid_weighted_x:
     - 264.1675555226803
-    center_of_mass_y:
+    centroid_weighted_y:
     - 288.2084306164054
+    centroid_x:
+    - 264.0
+    centroid_y:
+    - 288.0
     max_intensity:
     - 239.0
     max_intensity_pos_x:
@@ -5260,8 +5262,8 @@ output:
     - 0.787516385135652
     - 0.7932377419218949
     - 0.8200836820083683
-  profile_rois:
-    label: Profile ROIs
+  roi_profiles:
+    label: Intensity profiles ROI
     description: ROIs used to compute the intensity profiles
     image:
     - https://dev.mri.cnrs.fr/attachments/download/3071/chroma.npy
@@ -5310,7 +5312,7 @@ output:
         y1: 0.0
         x2: 256.0
         y2: 512.0
-  corner_rois:
+  roi_corners:
     label: Corner ROIs
     description: ROIs used to compute the corner intensities
     image:
@@ -5415,8 +5417,8 @@ output:
         y: 461.0
         w: 51.0
         h: 51.0
-  center_of_illumination:
-    label: Centers of illumination
+  roi_centroids_weighted:
+    label: Weighted Centroids ROIs
     description: Detected centers of illumination
     image:
     - https://dev.mri.cnrs.fr/attachments/download/3071/chroma.npy
@@ -5434,8 +5436,8 @@ output:
           b: 0
           alpha: 200
         stroke_width: 5
-        y: 255
-        x: 255
+        y: 288.2084306164054
+        x: 264.1675555226803
       ch01_center:
         c: 1
         fill_color:
